@@ -1,0 +1,39 @@
+apply plugin: "kotlin-multiplatform"
+apply plugin: "com.android.library"
+
+android {
+    compileSdk v.compile_sdk
+
+    defaultConfig {
+        minSdk v.min_sdk
+        targetSdk v.target_sdk
+    }
+
+    // Workaround as per https://stackoverflow.com/a/66433024/1533933
+    configurations {
+        androidTestApi {}
+        androidTestDebugApi {}
+        androidTestReleaseApi {}
+        testApi {}
+        testDebugApi {}
+        testReleaseApi {}
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/androidMain/AndroidManifest.xml'
+            java.srcDirs = ['src/androidMain/kotlin']
+            res.srcDirs = ['src/androidMain/res']
+            assets.srcDirs = ['src/androidMain/assets']
+        }
+    }
+}
+
+kotlin {
+    android()
+    jvm()
+    js(IR) {
+        useCommonJs()
+        browser()
+    }
+}

@@ -1,0 +1,73 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+
+android {
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion v.androidx_compose
+    }
+
+    compileSdkVersion(31)
+
+    defaultConfig {
+        applicationId = "me.abdulbasit.android"
+        minSdkVersion(24)
+        targetSdkVersion(31)
+        versionCode = 1
+        versionName = "1.0"
+    }
+    buildTypes {
+        getByName("release") {
+//            isMinifyEnabled = false
+        }
+    }
+}
+dependencies {
+    implementation d.kotlin_coroutines_core
+    implementation d.kotlin_coroutines_android
+
+
+    implementation d.kodein
+
+    implementation d.androidx_core_ktx
+    implementation d.androidx_appcompat
+    implementation d.androidx_compose_foundation
+    implementation d.androidx_compose_material
+    implementation d.androidx_compose_material_icons
+    implementation d.androidx_compose_navigation
+    implementation d.androidx_compose_ui_tooling
+    implementation d.androidx_compose_ui_util
+    implementation d.material_components
+    implementation d.accompanist_pager
+    implementation d.accompanist_pager_indicators
+    implementation d.accompanist_insets
+    implementation d.accompanist_insets_ui
+    implementation d.accompanist_system_ui_controller
+}
+
+String getApiKey() {
+    def ciKey = System.getenv()['API_KEY']
+    def localKey = findProperty("Pokemon_api_key")
+    if (ciKey != null) {
+        return ciKey
+    } else if (localKey != null) {
+        return localKey
+    } else {
+        throw Exception("Can't find API key")
+    }
+}
+
+String getMapboxApiKey() {
+    def ciKey = System.getenv()['MAPBOX_API_KEY']
+    def localKey = findProperty("Pokemon_mapbox_api_key")
+    if (ciKey != null) {
+        return ciKey
+    } else if (localKey != null) {
+        return localKey
+    } else {
+        throw Exception("Can't find API key")
+    }
+}

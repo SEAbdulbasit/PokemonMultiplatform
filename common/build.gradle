@@ -1,0 +1,25 @@
+apply from: "../module_default.gradle"
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+    }
+}
+
+kotlin {
+    sourceSets {
+        jvmMain {
+            dependencies {}
+        }
+        commonMain {
+            dependencies {}
+        }
+        androidMain {
+            dependencies {}
+        }
+        jsMain {
+            dependencies {
+            }
+        }
+    }
+}

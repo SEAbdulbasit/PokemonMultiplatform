@@ -1,0 +1,47 @@
+apply plugin: "com.github.ben-manes.versions"
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+buildscript {
+    apply from: 'dependencies.gradle'
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath d.gradle_plugin_kotlin
+        classpath d.gradle_plugin_android
+        classpath d.gradle_plugin_sqldelight
+        classpath d.gradle_plugin_kotlin_serialization
+        classpath d.gradle_plugin_versions
+        classpath d.gradle_plugin_detekt
+    }
+}
+
+dependencies {
+    detektPlugins d.quality_detekt_formatting
+}
+task detektAll(type: io.gitlab.arturbosch.detekt.Detekt) {
+    failFast = true
+    parallel = true
+    setSource(files(projectDir))
+    include("**/*.kt")
+    include("**/*.kts")
+    exclude("**/resources/**")
+    exclude("**/build/**")
+    buildUponDefaultConfig = true
+    config.from(files("$rootDir/quality/detekt.yml"))
+    reports {
+        html.enabled = false
+        xml.enabled = false
+        txt.enabled = false
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
