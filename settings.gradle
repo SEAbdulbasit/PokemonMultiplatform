@@ -10,3 +10,8 @@ rootProject.name = "Pokemon"
 include(':android')
 include(':desktop')
 include(':common')
+include(':network')
+include(':feature:pokemonlist')
+include(':core:navigation')
+include(':core:lifecycle')
+include(':core:presentation')

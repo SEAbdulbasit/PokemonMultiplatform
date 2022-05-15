@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lifecycle-js">
+    <output-path>$PROJECT_DIR$/core/lifecycle/build/libs</output-path>
+    <root id="archive" name="lifecycle-js.jar">
+      <element id="module-output" name="Pokemon.core.lifecycle.jsMain" />
+    </root>
+  </artifact>
+</component>

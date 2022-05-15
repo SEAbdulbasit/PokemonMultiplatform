@@ -98,6 +98,11 @@ d.test_mockk = "io.mockk:mockk:$v.test_mockk"
 
 d.project = [:]
 
+d.project.network = project(":network")
+d.project.core_presentation = project(":core:presentation")
+d.project.core_navigation = project(":core:navigation")
+d.project.core_lifecycle = project(":core:lifecycle")
+d.project.pokemon_list = project(":feature:pokemonlist")
 
 
 ext.v = v

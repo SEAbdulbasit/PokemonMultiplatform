@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="navigation-js">
+    <output-path>$PROJECT_DIR$/core/navigation/build/libs</output-path>
+    <root id="archive" name="navigation-js.jar">
+      <element id="module-output" name="Pokemon.core.navigation.jsMain" />
+    </root>
+  </artifact>
+</component>

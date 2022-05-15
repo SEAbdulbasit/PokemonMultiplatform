@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lifecycle-jvm">
+    <output-path>$PROJECT_DIR$/core/lifecycle/build/libs</output-path>
+    <root id="archive" name="lifecycle-jvm.jar">
+      <element id="module-output" name="Pokemon.core.lifecycle.jvmMain" />
+    </root>
+  </artifact>
+</component>

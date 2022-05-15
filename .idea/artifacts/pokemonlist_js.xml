@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="pokemonlist-js">
+    <output-path>$PROJECT_DIR$/feature/pokemonlist/build/libs</output-path>
+    <root id="archive" name="pokemonlist-js.jar">
+      <element id="module-output" name="Pokemon.feature.pokemonlist.jsMain" />
+    </root>
+  </artifact>
+</component>
