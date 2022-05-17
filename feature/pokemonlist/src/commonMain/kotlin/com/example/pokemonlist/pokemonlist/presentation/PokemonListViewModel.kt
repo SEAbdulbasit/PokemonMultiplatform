@@ -24,16 +24,19 @@ class PokemonListViewModelImpl(
                 is PokemonListActionResult.Loaded -> PokemonListState.Data(
                     result.pokemonList
                 )
+                is PokemonListActionResult.Error -> PokemonListState.Error(error = result.exception)
             }
         }
         is PokemonListState.Data -> {
             when (result) {
                 is PokemonListActionResult.Loaded -> state.copy(result.pokemonList)
+                is PokemonListActionResult.Error -> state//.copy(result.pokemonList)
             }
         }
         is PokemonListState.Error -> {
             when (result) {
-                is PokemonListActionResult.Loaded -> state//.copy(result.pokemonList)
+                is PokemonListActionResult.Loaded -> reducerError(state, result)
+                is PokemonListActionResult.Error -> reducerError(state, result)
             }
         }
     }
@@ -42,7 +45,12 @@ class PokemonListViewModelImpl(
         when (action) {
             PokemonListAction.Load -> {
                 scope.launch {
-                    onActionResult(PokemonListActionResult.Loaded(pokemonListInteractor.getPokemonList(0)))
+                    try {
+                        onActionResult(PokemonListActionResult.Loaded(pokemonListInteractor.getPokemonList(0)))
+                    } catch (e: Exception) {
+                        onActionResult(PokemonListActionResult.Error(e))
+
+                    }
                 }
             }
         }

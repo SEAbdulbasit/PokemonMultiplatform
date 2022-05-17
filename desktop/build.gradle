@@ -34,8 +34,10 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation compose.desktop.currentOs
+                implementation compose.desktop.macos_arm64
                 implementation d.kodein
                 implementation d.ktor_client_java
+                implementation d.project.core_image_loader_jvm
                 api d.project.network
                 api d.project.pokemon_list
             }

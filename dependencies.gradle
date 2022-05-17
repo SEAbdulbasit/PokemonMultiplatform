@@ -103,6 +103,8 @@ d.project.core_presentation = project(":core:presentation")
 d.project.core_navigation = project(":core:navigation")
 d.project.core_lifecycle = project(":core:lifecycle")
 d.project.pokemon_list = project(":feature:pokemonlist")
+d.project.core_image_loader_jvm = project(":core:image-loader:jvm")
+d.project.core_image_loader_android = project(":core:image-loader:android")
 
 
 ext.v = v

@@ -8,10 +8,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.pokemon.network.networkModule
-import com.example.pokemonlist.pokemonlist.pokemonListModule
 import features.PokemonListScreenListScreen
 import org.kodein.di.DI
-import org.kodein.di.instance
 
 
 fun main() = application {

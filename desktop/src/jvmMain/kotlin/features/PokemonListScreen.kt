@@ -1,8 +1,10 @@
 package features
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -16,6 +18,7 @@ import com.example.pokemonlist.pokemonlist.pokemonListModule
 import com.example.pokemonlist.pokemonlist.presentation.PokemonListAction
 import com.example.pokemonlist.pokemonlist.presentation.PokemonListState
 import com.example.pokemonlist.pokemonlist.presentation.PokemonListViewModel
+import com.krossovochkin.imageloader.ImageLoader
 import org.kodein.di.DI
 import org.kodein.di.instance
 
@@ -71,8 +74,9 @@ private fun DataState(
 ) {
     Column {
         LazyColumn(modifier = Modifier.weight(1f)) {
-            itemsIndexed(state.pokemonList) { index, pokemon ->
+            items(state.pokemonList) { pokemon ->
                 PokemonItem(pokemon = pokemon, onAction = { })
+                Divider(color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f))
             }
         }
     }
@@ -84,9 +88,21 @@ private fun PokemonItem(pokemon: Pokemon, onAction: (PokemonListAction) -> Unit)
         modifier = Modifier.fillMaxWidth()
         // .clickable(onClick = { onAction(CityListAction.SelectCity(city)) }),
     ) {
+
         Text(
             modifier = Modifier.padding(16.dp), text = pokemon.name, style = MaterialTheme.typography.body1
         )
+        Text(
+            modifier = Modifier.padding(16.dp), text = pokemon.name, style = MaterialTheme.typography.body1
+        )
+
+        ImageLoader.rememberImagePainter(pokemon.getImageUrl())?.let {
+            Image(
+                painter = it,
+                modifier = Modifier.size(160.dp),
+                contentDescription = "weatherData.weatherConditionImageContentDescription"
+            )
+        }
     }
 }
 
