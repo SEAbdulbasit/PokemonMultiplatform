@@ -1,8 +1,12 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package features
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -12,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.pokemonlist.pokemonlist.models.Pokemon
 import com.example.pokemonlist.pokemonlist.pokemonListModule
@@ -49,10 +54,10 @@ private fun PokemonListScreenImpl(
 ) {
     DisposableEffect(null) { onDispose { onDispose() } }
     Surface(
-        color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize()
+        color = Color.Black, modifier = Modifier.fillMaxSize()
     ) {
         when (pokemonListState) {
-            is PokemonListState.Loading -> CityListLoadingState()
+            is PokemonListState.Loading -> PokemonLoadingScreen()
             is PokemonListState.Data -> DataState(state = pokemonListState, onAction = { onAction(it) })
             is PokemonListState.Error -> ErrorState(state = pokemonListState)
         }
@@ -60,7 +65,7 @@ private fun PokemonListScreenImpl(
 }
 
 @Composable
-private fun CityListLoadingState() {
+private fun PokemonLoadingScreen() {
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
@@ -72,35 +77,26 @@ private fun CityListLoadingState() {
 private fun DataState(
     state: PokemonListState.Data, onAction: (PokemonListAction) -> Unit
 ) {
-    Column {
-        LazyColumn(modifier = Modifier.weight(1f)) {
-            items(state.pokemonList) { pokemon ->
-                PokemonItem(pokemon = pokemon, onAction = { })
-                Divider(color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f))
-            }
+    LazyVerticalGrid(
+        cells = GridCells.Adaptive(240.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(8.dp)
+    ) {
+        items(state.pokemonList) { pokemon ->
+            PokemonItem(pokemon = pokemon, onAction = { })
         }
     }
 }
 
 @Composable
 private fun PokemonItem(pokemon: Pokemon, onAction: (PokemonListAction) -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-        // .clickable(onClick = { onAction(CityListAction.SelectCity(city)) }),
-    ) {
-
-        Text(
-            modifier = Modifier.padding(16.dp), text = pokemon.name, style = MaterialTheme.typography.body1
-        )
-        Text(
-            modifier = Modifier.padding(16.dp), text = pokemon.name, style = MaterialTheme.typography.body1
-        )
-
-        ImageLoader.rememberImagePainter(pokemon.getImageUrl())?.let {
+    ImageLoader.rememberImagePainter(pokemon.getImageUrl())?.let {
+        Card(modifier = Modifier.wrapContentSize(), shape = RoundedCornerShape(8.dp)) {
             Image(
                 painter = it,
-                modifier = Modifier.size(160.dp),
-                contentDescription = "weatherData.weatherConditionImageContentDescription"
+                modifier = Modifier.height(240.dp).width(240.dp),
+                contentDescription = pokemon.name,
             )
         }
     }
